@@ -13,7 +13,14 @@ pipeline {
 
     stage('Build & Test') {
       steps {
-        sh 'mvn -B -DskipTests=false clean install'
+        script {
+          if (isUnix()) {
+            sh 'mvn -B -DskipTests=false clean install'
+          } else {
+            // Windows agents use 'bat'
+            bat 'mvn -B -DskipTests=false clean install'
+          }
+        }
       }
     }
   }
