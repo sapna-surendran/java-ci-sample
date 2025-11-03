@@ -1,13 +1,14 @@
 pipeline {
-  agent {
-    docker { image 'maven:3.8.8-openjdk-17' }
+  agent any
+
+  tools {
+    maven 'maveone'
+    jdk 'JDK21'
   }
 
   stages {
     stage('Checkout') {
-      steps {
-        checkout scm
-      }
+      steps { checkout scm }
     }
 
     stage('Build & Test') {
